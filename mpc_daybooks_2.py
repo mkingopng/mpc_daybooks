@@ -48,6 +48,9 @@ def read_mpc_files():
                          # remove unneeded data from header of first page
                          header=4, skiprows=1)
 
+    # for debugging
+    # print(mpc_df.head(119))
+    # print(list(mpc_df.columns))
     return mpc_df
 
 
@@ -97,3 +100,4 @@ if __name__ == '__main__':
     # clean_mpc_df = clean_mpc_data(mpc_df)
     # july_df = append_df()
     # export_df_to_xlsx()
+
