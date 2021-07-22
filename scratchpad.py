@@ -1,4 +1,5 @@
 import re
+
 # if not mpc_df[mpc_df['ACC'].apply(lambda x: type(x) in [int, np.int64, float, np.float64])]:
 #     mpc_df.drop()
 # else:
@@ -27,17 +28,18 @@ import re
 # Eliminate invalid data from df
 
 # clean_mpc_df = cleaner_mpc_df1[~cleaner_mpc_df1['ACC'].isin(accounts_list)]
-    # clean_mpc_df = cleaner_mpc_df1[~cleaner_mpc_df1.datecolumn.isin(accounts_list)]
-    # (cleaner_mpc_df1[cleaner_mpc_df1['ACC'].str.isnumeric()])
+# clean_mpc_df = cleaner_mpc_df1[~cleaner_mpc_df1.datecolumn.isin(accounts_list)]
+# (cleaner_mpc_df1[cleaner_mpc_df1['ACC'].str.isnumeric()])
 
-    # clean_mpc_df = cleaner_mpc_df1[~cleaner_mpc_df1['ACC'].isin(accounts_list).any()]
+# clean_mpc_df = cleaner_mpc_df1[~cleaner_mpc_df1['ACC'].isin(accounts_list).any()]
 
-    # mask = cleaner_mpc_df1.pipe(lambda x: (x['ACC'].isin(accounts_list)) | (x['ACC'].isna()), )
-    # clean_mpc_df = cleaner_mpc_df1.drop(cleaner_mpc_df1[mask].index)
+# mask = cleaner_mpc_df1.pipe(lambda x: (x['ACC'].isin(accounts_list)) | (x['ACC'].isna()), )
+# clean_mpc_df = cleaner_mpc_df1.drop(cleaner_mpc_df1[mask].index)
 #
 # with open('result.txt', "r") as f:
-#         lines = f.read()
-# # print(type(lines))
+#     lines = f.read()
+# print(type(lines))
+
 # list = []
 # for word in lines:
 #     re.findall(r"^\d-", lines)
@@ -49,11 +51,25 @@ import re
 # myfile = 'foo"s bar'
 # myfile2 = regex.sub(lambda m: m.group().replace('"', "%", 1), myfile)
 # print(myfile2)
+my_list = ['100.00-', '200.00-', '300.00-']
+my_string = 'it cost 100.00- to fly from 200.00- to 300.00- and back'
 
-my_string = '100.00-'
-my_new_string = my_string[-1:] + my_string[-1:]
-print(my_new_string)
 
-# word = 'Michael'
-# new_word = word[1:]+word[0]
-# print(new_word)
+def find(my_string):
+    new_string = ''
+    word = re.compile(r"\d-\s")
+    for word in my_string.split():
+        word.findall(word, my_string)
+        new_word = word[-1:] + word[:-1]
+        print(new_word)
+    return new_string
+
+
+if __name__ == '__main__':
+    find(my_string)
+    # print(new_string)
+
+
+# my_string = '100.00-'
+# my_new_string = my_string[-1:] + my_string[:-1]
+# print(my_new_string)
