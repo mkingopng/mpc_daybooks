@@ -62,8 +62,9 @@ def clean_mpc_data(mpc_df):
     # check to see if the value in each row for column 'ACC' is in the accounts list
     clean_mpc_df = cleaner_mpc_df1[cleaner_mpc_df1['ACC'].isin(accounts_list)]
     for row in clean_mpc_df['ACC']:
-        if clean_mpc_df.loc[clean_mpc_df['AMOUNT'].str.endswith('-'):
-            lambda x: x[-1] + x[:-1]
+        if (clean_mpc_df.loc[clean_mpc_df['AMOUNT'].str.endswith('-'):
+            new_string = string([-1] + x[:-1])  # this is the problem
+            continue
     return clean_mpc_df
 
 

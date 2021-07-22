@@ -1,3 +1,4 @@
+import re
 # if not mpc_df[mpc_df['ACC'].apply(lambda x: type(x) in [int, np.int64, float, np.float64])]:
 #     mpc_df.drop()
 # else:
@@ -33,3 +34,26 @@
 
     # mask = cleaner_mpc_df1.pipe(lambda x: (x['ACC'].isin(accounts_list)) | (x['ACC'].isna()), )
     # clean_mpc_df = cleaner_mpc_df1.drop(cleaner_mpc_df1[mask].index)
+#
+# with open('result.txt', "r") as f:
+#         lines = f.read()
+# # print(type(lines))
+# list = []
+# for word in lines:
+#     re.findall(r"^\d-", lines)
+#     list.append()
+#
+# re.sub()
+#
+# regex = re.compile('([a-zA-Z]\"[a-zA-Z])', re.S)
+# myfile = 'foo"s bar'
+# myfile2 = regex.sub(lambda m: m.group().replace('"', "%", 1), myfile)
+# print(myfile2)
+
+my_string = '100.00-'
+my_new_string = my_string[-1:] + my_string[-1:]
+print(my_new_string)
+
+# word = 'Michael'
+# new_word = word[1:]+word[0]
+# print(new_word)
