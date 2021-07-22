@@ -34,7 +34,7 @@ file = 'result.txt'
 
 
 def read_mpc_txt_files():
-    read_files = glob.glob('/Users/michaelkingston/PycharmProjects/MPC_daybooks/07_JUL_2020/*.txt')
+    read_files = glob.glob('/home/michaelkingston/Documents/GitHub/mpc_daybooks/07_JUL_2020/*.txt')
     with open('result.txt', 'wb') as outfile:
         for f in read_files:
             with open(f, 'rb') as infile:
