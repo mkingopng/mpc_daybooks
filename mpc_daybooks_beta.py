@@ -31,10 +31,10 @@ import pandas as pd
 import glob
 import re
 
+
 full_month_file = open('result.txt')
 final_file = open('final_file.txt')
 clean_text = open('clean_text')
-match = ' '
 
 
 def read_mpc_txt_files():
@@ -52,9 +52,12 @@ def read_mpc_txt_files():
 
 def clean_text_file(self):
     """
-    something wrong with this one. not sending anything to final file
+    something wrong with this function. not writing anything to final_file.txt. temporarily bypassing this function
+    until i can get it to work.
+
+    This function may be unnecessary. It may be better to do this after the data is in pd.DataFrame
     :param self:
-    :return:
+    :return: should return negative numbers that are correctly formatted (eg -100.00 vs 100.00-)
     """
 
     pattern = re.compile("/([0-9]-)/g")
@@ -72,13 +75,17 @@ def clean_text_file(self):
     return final_file
 
 
-def create_df(final_file):
+def create_df(full_month_file):
     """
-    
+    This function imports the consolidated data from the text file to pd.DataFrame. Have to use the fwf method because the delimiters
+    are inconsistent. most of the data types are coerced to string type for to allow us to use the pd.Series methods to
+    find incorrectly formatted numbers (eg: 100.00-) and mutating them into acceptable format (eg -100.00).
+
+    need to consider whether there are more appropriate data types for columns excluding 'ACCOUNT'.
     :param full_month_file:
-    :return: 
+    :return: dataframe
     """
-    mpc_df = pd.read_fwf(final_file, colspecs=[(0, 9), (10, 18), (19, 25), (26, 28), (33, 40), (56, 67), (68, 92),
+    mpc_df = pd.read_fwf(full_month_file, colspecs=[(0, 9), (10, 18), (19, 25), (26, 28), (33, 40), (56, 67), (68, 92),
                                          (93, 100), (101, 111)],
                          names=['TRANS-', 'TRANSDAT', 'ACC', 'CC', 'PRD', 'AMOUNT', 'TEXT', 'WORK.C', 'WO-NO'],
                          dtype={'TRANS-': str, 'TRANSDAT': object, 'ACC': str, 'CC': str, 'PRD': str,
