@@ -73,3 +73,9 @@ if __name__ == '__main__':
 # my_string = '100.00-'
 # my_new_string = my_string[-1:] + my_string[:-1]
 # print(my_new_string)
+
+pattern = re.compile("/([0-9]-)/g")
+
+for i, line in enumerate(open('/home/michaelkingston/Documents/GitHub/mpc_daybooks/result.txt')):
+    for match in re.finditer(pattern, line):
+        print('Found on line %s: %s' % (i+1, match.group()))

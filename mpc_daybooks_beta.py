@@ -29,6 +29,7 @@ process:
 """
 import pandas as pd
 import glob
+import re
 
 file = 'result.txt'
 
@@ -40,6 +41,15 @@ def read_mpc_txt_files():
             with open(f, 'rb') as infile:
                 outfile.write(infile.read())
     return outfile
+
+
+def clean_text_file(outfile):
+    pattern = re.compile("/([0-9]-)/g")
+
+with open('final.txt', wb)
+    for i, line in enumerate(outfile):
+        for match in re.finditer(pattern, line):
+            print('Found on line %s: %s' % (i + 1, match.group()))
 
 
 def create_df(file):
@@ -58,18 +68,15 @@ def clean_mpc_data(mpc_df):
     accounts_list = ['001049', '001021', '100112', '350000', '400001', '400916',
                      '400100', '400902', '400903', '400910', '400911', '400912']
     # remove all the rows with NaN in 'ACC'
-    cleaner_mpc_df1 = mpc_df[mpc_df['ACC'].notna()]
+    cleaner_mpc_df = mpc_df[mpc_df['ACC'].notna()]
     # check to see if the value in each row for column 'ACC' is in the accounts list
-    clean_mpc_df = cleaner_mpc_df1[cleaner_mpc_df1['ACC'].isin(accounts_list)]
-    for row in clean_mpc_df['ACC']:
-        if (clean_mpc_df.loc[clean_mpc_df['AMOUNT'].str.endswith('-'):
-            new_string = string([-1] + x[:-1])  # this is the problem
-            continue
+    clean_mpc_df = cleaner_mpc_df[cleaner_mpc_df['ACC'].isin(accounts_list)]
     return clean_mpc_df
 
 
 if __name__ == '__main__':
     outfile = read_mpc_txt_files()
+    clean_text_file()
     mpc_df = create_df(file)
     clean_mpc_df = clean_mpc_data(mpc_df)
     clean_mpc_df.to_csv(r'july_mpc.csv')
