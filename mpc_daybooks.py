@@ -41,7 +41,7 @@ def read_mpc_txt_files():
     :param: 
     :return: a single txt file with the data from all the text files in the directory
     """
-    read_files = glob.glob('/media/michaelkingston/4948-14F3/2021 MPC JNLS/07 JUL 2021/*.txt')
+    read_files = glob.glob('/home/michaelkingston/Documents/GitHub/mpc_daybooks/07_JUL_2020/*.txt')
     with open('result.txt', 'wb') as outfile:
         for f in read_files:
             with open(f, 'rb') as infile:
@@ -85,4 +85,4 @@ if __name__ == '__main__':
     outfile = read_mpc_txt_files()
     mpc_df = create_df(full_month_file)
     clean_mpc_df = clean_mpc_data(mpc_df)
-    clean_mpc_df.to_csv(r'jul21_mpc.csv')
+    clean_mpc_df.to_csv(r'jul20_mpc.csv')

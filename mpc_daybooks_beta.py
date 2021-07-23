@@ -31,29 +31,54 @@ import pandas as pd
 import glob
 import re
 
-file = 'result.txt'
+full_month_file = open('result.txt')
+final_file = open('final_file.txt')
+clean_text = open('clean_text')
+match = ' '
 
 
 def read_mpc_txt_files():
+    """
+    reads all txt files in a folder and returns a single text file
+    :return: a single text file consolidating all the information from the txt files in the directory
+    """
     read_files = glob.glob('/home/michaelkingston/Documents/GitHub/mpc_daybooks/07_JUL_2020/*.txt')
     with open('result.txt', 'wb') as outfile:
         for f in read_files:
-            with open(f, 'rb') as infile:
-                outfile.write(infile.read())
+            with open(f, 'rb') as file:
+                outfile.write(file.read())
     return outfile
 
 
-def clean_text_file(outfile):
+def clean_text_file(self):
+    """
+    something wrong with this one. not sending anything to final file
+    :param self:
+    :return:
+    """
+
     pattern = re.compile("/([0-9]-)/g")
+    replacement = r'/(-\d+.\d{2})/g'
 
-with open('final.txt', wb)
-    for i, line in enumerate(outfile):
-        for match in re.finditer(pattern, line):
-            print('Found on line %s: %s' % (i + 1, match.group()))
+    f2 = final_file
+    for i, line in enumerate(full_month_file):
+        for match in re.sub(pattern, replacement, match):
+        # print(type(match))
+    # i think the logic is ok to here
 
 
-def create_df(file):
-    mpc_df = pd.read_fwf(file, colspecs=[(0, 9), (10, 18), (19, 25), (26, 28), (33, 40), (56, 67), (68, 92),
+        # new_string = str([-1:]) + str([:-1])
+
+    return final_file
+
+
+def create_df(final_file):
+    """
+    
+    :param full_month_file:
+    :return: 
+    """
+    mpc_df = pd.read_fwf(final_file, colspecs=[(0, 9), (10, 18), (19, 25), (26, 28), (33, 40), (56, 67), (68, 92),
                                          (93, 100), (101, 111)],
                          names=['TRANS-', 'TRANSDAT', 'ACC', 'CC', 'PRD', 'AMOUNT', 'TEXT', 'WORK.C', 'WO-NO'],
                          dtype={'TRANS-': str, 'TRANSDAT': object, 'ACC': str, 'CC': str, 'PRD': str,
@@ -76,7 +101,9 @@ def clean_mpc_data(mpc_df):
 
 if __name__ == '__main__':
     outfile = read_mpc_txt_files()
-    clean_text_file()
-    mpc_df = create_df(file)
+    clean_text_file(full_month_file)
+    mpc_df = create_df(full_month_file)
     clean_mpc_df = clean_mpc_data(mpc_df)
-    clean_mpc_df.to_csv(r'july_mpc.csv')
+    clean_mpc_df.to_csv(r'july20_mpc.csv')
+
+
