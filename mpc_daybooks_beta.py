@@ -66,12 +66,9 @@ def clean_text_file(self):
     f2 = final_file
     for i, line in enumerate(full_month_file):
         for match in re.sub(pattern, replacement, match):
-        # print(type(match))
-    # i think the logic is ok to here
-
-
+            # print(type(match))
+            # i think the logic is ok to here
         # new_string = str([-1:]) + str([:-1])
-
     return final_file
 
 
