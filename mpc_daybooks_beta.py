@@ -50,6 +50,17 @@ def read_mpc_txt_files():
     return outfile
 
 
+def replacement(match):
+    """
+
+    :param match:
+    :return:
+    """
+
+
+    return repl
+
+
 def clean_text_file(self):
     """
     something wrong with this function. not writing anything to final_file.txt. temporarily bypassing this function
@@ -61,15 +72,20 @@ def clean_text_file(self):
     """
 
     pattern = re.compile("/([0-9]-)/g")
-    replacement = r'/(-\d+.\d{2})/g'
+    # repl = re.compile('/(-\d+.\d{2})/g')
+    repl = word([-1:]) + word([:-1])
 
     f2 = final_file
     for i, line in enumerate(full_month_file):
-        for match in re.sub(pattern, replacement, match):
+        for word in line:
+            str.replace(pattern, repl)
             # print(type(match))
             # i think the logic is ok to here
-        # new_string = str([-1:]) + str([:-1])
+        #
     return final_file
+
+
+
 
 
 def create_df(full_month_file):
