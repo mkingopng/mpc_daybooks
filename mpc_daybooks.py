@@ -41,7 +41,7 @@ def read_mpc_txt_files():
     :param: 
     :return: a single txt file with the data from all the text files in the directory
     """
-    read_files = glob.glob('/home/michaelkingston/Documents/GitHub/mpc_daybooks/07_JUL_2020/*.txt')
+    read_files = glob.glob('/media/michaelkingston/4948-14F3/Journals/2020 MPC JNLS/07 JUL 2020/*.txt')
     with open('result.txt', 'wb') as outfile:
         for f in read_files:
             with open(f, 'rb') as infile:
