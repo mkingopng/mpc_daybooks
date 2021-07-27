@@ -22,8 +22,12 @@ process:
     - export clean data to csv or xlsx (complete to this point)
 # this file performs correctly to this point.
 
+
 Issues to fix:
+    - fix date problem when output to csv
+    - fix the output to xlsx
     - in column 'AMOUNT' move the '-' symbol to the front of the string then coerce to float
+
     - automate the analysis. Probably need to use plotly scatter chart. Need hovertext.
         = pivot the data
         = filter by CC
