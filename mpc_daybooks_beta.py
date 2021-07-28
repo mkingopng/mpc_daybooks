@@ -113,4 +113,4 @@ if __name__ == '__main__':
     mpc_df = create_df(full_month_file)
     clean_mpc_df = clean_mpc_data(mpc_df)
     final_mpc_df = fix_negatives(clean_mpc_df)
-    final_mpc_df.to_csv(r'.csv')
+    final_mpc_df.to_csv(r'final.csv')
