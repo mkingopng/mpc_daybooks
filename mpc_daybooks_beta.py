@@ -15,18 +15,13 @@ process:
     - save the consolidated data to result.txt
     - open & read result.txt to df using the fwf method
     - loop through the rows in the df & remove all rows which have a value not in the list in column 'ACC'
-    - export clean data to csv or xlsx
+    - export clean data to xlsx
     (complete to this point)
 
-# TODO: #3 some product codes get turned into dates when exporting to CSV. again, i deliberately coerced this to str on
-    line 102 to avoid this. not sure why its happening
+# TODO: #3 cast TRANSDATE to date data type
 
-# TODO: #4 remove the row indexes
-
-# TODO: #5 cast date to date data type
-
-# TODO: automate the analysis.
-    - pivot
+# TODO: #4 automate the analysis.
+    - pivot & save to seperate xlsx sheet
     - need to use plotly scatter chart. Need hovertext (matplotlib doesn't have overtext does it?).
     - scatterplot with hovertext to pick outliers (work orders with variance type & value)'
     - export to excel. cleaned data to sheet 'data', pivoted data to 'pivot', plot to 'plot'
@@ -104,8 +99,8 @@ def fix_negatives(clean_mpc_df):
     pattern = r'\d+.{0,1}\d*-$'
     mask = clean_mpc_df['AMOUNT'].str.contains(pattern, regex=True)
     clean_mpc_df.loc[mask, 'AMOUNT'] = -clean_mpc_df.loc[mask]['AMOUNT'].str.replace('-', '').astype(float)
-    final_mpc_df['AMOUNT'] = clean_mpc_df['AMOUNT'].astype(float)
-    return final_mpc_df
+    clean_mpc_df['AMOUNT'] = clean_mpc_df['AMOUNT'].astype(float)
+    return clean_mpc_df
 
 
 if __name__ == '__main__':
@@ -113,4 +108,4 @@ if __name__ == '__main__':
     mpc_df = create_df(full_month_file)
     clean_mpc_df = clean_mpc_data(mpc_df)
     final_mpc_df = fix_negatives(clean_mpc_df)
-    final_mpc_df.to_csv(r'final.csv')
+    final_mpc_df.to_excel(r'final.xlsx', sheet_name="data_base", index=False)
