@@ -1,27 +1,33 @@
+import numpy as np
+import matplotlib as mpl
 import matplotlib.pyplot as plt
-import numpy as np; np.random.seed(1)
+from matplotlib import cm
+from colorspacious import cspace_converter
+from collections import OrderedDict
+
+np.random.seed(1)
 
 x = np.random.rand(15)
 y = np.random.rand(15)
 names = np.array(list("ABCDEFGHIJKLMNO"))
-c = np.random.randint(1,5,size=15)
+c = np.random.randint(1, 5, size=15)
 
-norm = plt.Normalize(1,4)
-cmap = plt.cm.RdYlGn
+norm = plt.Normalize(1, 4)
+cmap = plt.cm.get_cmap('coolwarm')
 
-fig,ax = plt.subplots()
-sc = plt.scatter(x,y,c=c, s=100, cmap=cmap, norm=norm)
+fig, ax = plt.subplots()
+sc = plt.scatter(x, y, c=c, s=100, cmap=cmap, norm=norm)
 
-annot = ax.annotate("", xy=(0,0), xytext=(20,20),textcoords="offset points",
+annot = ax.annotate("", xy=(0, 0), xytext=(20, 20), textcoords="offset points",
                     bbox=dict(boxstyle="round", fc="w"),
                     arrowprops=dict(arrowstyle="->"))
 annot.set_visible(False)
 
-def update_annot(ind):
 
+def update_annot(ind):
     pos = sc.get_offsets()[ind["ind"][0]]
     annot.xy = pos
-    text = "{}, {}".format(" ".join(list(map(str,ind["ind"]))),
+    text = "{}, {}".format(" ".join(list(map(str, ind["ind"]))),
                            " ".join([names[n] for n in ind["ind"]]))
     annot.set_text(text)
     annot.get_bbox_patch().set_facecolor(cmap(norm(c[ind["ind"][0]])))
@@ -40,6 +46,7 @@ def hover(event):
             if vis:
                 annot.set_visible(False)
                 fig.canvas.draw_idle()
+
 
 fig.canvas.mpl_connect("motion_notify_event", hover)
 
