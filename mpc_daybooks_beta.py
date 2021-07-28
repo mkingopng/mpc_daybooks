@@ -18,9 +18,6 @@ process:
     - export clean data to csv or xlsx
     (complete to this point)
 
-# TODO: #2 something happens when exporting to CSV. the '0' at the beginning of the strings disappears.
-    I didn't want that, which is why i deliberately coerced the data to string on line 102
-
 # TODO: #3 some product codes get turned into dates when exporting to CSV. again, i deliberately coerced this to str on
     line 102 to avoid this. not sure why its happening
 
@@ -97,14 +94,15 @@ def clean_mpc_data(mpc_df):
     return clean_mpc_df
 
 
-def fix_negatives(final_mpc_df):
+def fix_negatives(clean_mpc_df):
     """
-
-    :param final_mpc_df:
-    :return:
+    the negative values in the amount column are incorrectly formatted. Need to move the negative symbol from the end
+    off the string to the front and cast to float
+    :param clean_mpc_df:
+    :return final_mpc_df:
     """
-    pt = r'\d+.{0,1}\d*-$'
-    mask = clean_mpc_df['AMOUNT'].str.contains(pt, regex=True)
+    pattern = r'\d+.{0,1}\d*-$'
+    mask = clean_mpc_df['AMOUNT'].str.contains(pattern, regex=True)
     clean_mpc_df.loc[mask, 'AMOUNT'] = -clean_mpc_df.loc[mask]['AMOUNT'].str.replace('-', '').astype(float)
     final_mpc_df['AMOUNT'] = clean_mpc_df['AMOUNT'].astype(float)
     return final_mpc_df
@@ -112,10 +110,7 @@ def fix_negatives(final_mpc_df):
 
 if __name__ == '__main__':
     outfile = read_mpc_txt_files()
-    # clean_text_file(full_month_file)
     mpc_df = create_df(full_month_file)
     clean_mpc_df = clean_mpc_data(mpc_df)
     final_mpc_df = fix_negatives(clean_mpc_df)
     final_mpc_df.to_csv(r'.csv')
-
-
