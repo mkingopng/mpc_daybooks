@@ -39,6 +39,7 @@ process:
     - pivot
     - need to use plotly scatter chart. Need hovertext (matplotlib doesn't have overtext does it?).
     - scatterplot with hovertext to pick outliers (work orders with variance type & value)'
+    - export to excel. cleaned data to sheet 'data', pivoted data to 'pivot', plot to 'plot'
 """
 import pandas as pd
 import glob
