@@ -18,22 +18,21 @@ process:
     - export clean data to xlsx
     (complete to this point)
 
-# TODO: #3 cast TRANSDATE to date data type
+# TODO: #1 formatting
+    - cast TRANSDATE to date data type
+    - fill in nan values for TRANSDATE
+    -
 
 # TODO: #4 automate the analysis.
     - pivot & save to seperate xlsx sheet
-    - need to use plotly scatter chart. Need hovertext (matplotlib doesn't have overtext does it?).
     - scatterplot with hovertext to pick outliers (work orders with variance type & value)'
     - export to excel. cleaned data to sheet 'data', pivoted data to 'pivot', plot to 'plot'
 """
 import pandas as pd
 import glob
-import re
-
+import matplotlib
 
 full_month_file = open('result.txt')
-# final_file = open('final_file.txt')
-# clean_text = open('clean_text')
 directory = '/home/michaelkingston/Documents/GitHub/mpc_daybooks/*.txt'
 
 
