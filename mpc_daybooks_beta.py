@@ -18,13 +18,6 @@ process:
     - export clean data to csv or xlsx
     (complete to this point)
 
-# TODO: #1 move the '-' symbol to the front of the string in column 'AMOUNT'
-    - option 1: while its still in text using regex? something like
-        my_string = '100.00-'
-        my_new_string = my_string[-1:] + my_string[:-1]
-        print(my_new_string)
-    - option 2: use a series method
-
 # TODO: #2 something happens when exporting to CSV. the '0' at the beginning of the strings disappears.
     I didn't want that, which is why i deliberately coerced the data to string on line 102
 
@@ -63,31 +56,6 @@ def read_mpc_txt_files():
             with open(f, 'rb') as file:
                 outfile.write(file.read())
     return outfile
-
-
-# TODO: if i'm going to move the '-' while the data is in txt, it should be here
-# def clean_text_file(self):
-#     """
-#     something wrong with this function. not writing anything to final_file.txt. temporarily bypassing this function
-#     until i can get it to work.
-#
-#     This function may be unnecessary. It may be better to do this after the data is in pd.DataFrame
-#     :param self:
-#     :return: should return negative numbers that are correctly formatted (eg -100.00 vs 100.00-)
-#     """
-#
-#     pattern = re.compile("/([0-9]-)/g")
-#     # repl = re.compile('/(-\d+.\d{2})/g')
-#     repl = word([-1:]) + word([:-1])
-#
-#     f2 = final_file
-#     for i, line in enumerate(full_month_file):
-#         for word in line:
-#             str.replace(pattern, repl)
-#             # print(type(match))
-#             # i think the logic is ok to here
-#         #
-#     return final_file
 
 
 def create_df(full_month_file):
@@ -129,8 +97,17 @@ def clean_mpc_data(mpc_df):
     return clean_mpc_df
 
 
-# TODO: if i'm going to move the '-' using series method, it should be here
-# def clean_symbols():
+def fix_negatives(final_mpc_df):
+    """
+
+    :param final_mpc_df:
+    :return:
+    """
+    pt = r'\d+.{0,1}\d*-$'
+    mask = clean_mpc_df['AMOUNT'].str.contains(pt, regex=True)
+    clean_mpc_df.loc[mask, 'AMOUNT'] = -clean_mpc_df.loc[mask]['AMOUNT'].str.replace('-', '').astype(float)
+    final_mpc_df['AMOUNT'] = clean_mpc_df['AMOUNT'].astype(float)
+    return final_mpc_df
 
 
 if __name__ == '__main__':
@@ -138,7 +115,7 @@ if __name__ == '__main__':
     # clean_text_file(full_month_file)
     mpc_df = create_df(full_month_file)
     clean_mpc_df = clean_mpc_data(mpc_df)
-    print(clean_mpc_df.head())
-    clean_mpc_df.to_csv(r'test.csv')
+    final_mpc_df = fix_negatives(clean_mpc_df)
+    final_mpc_df.to_csv(r'.csv')
 
 
