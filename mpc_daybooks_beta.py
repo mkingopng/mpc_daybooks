@@ -31,12 +31,14 @@ process:
 # TODO: #3 some product codes get turned into dates when exporting to CSV. again, i deliberately coerced this to str on
     line 102 to avoid this. not sure why its happening
 
+# TODO: #4 remove the row indexes
+
+# TODO: #5 cast date to date data type
+
 # TODO: automate the analysis.
     - pivot
     - need to use plotly scatter chart. Need hovertext (matplotlib doesn't have overtext does it?).
-    - scatterplot with hovertext to pick outliers (work orders with variance type & value)
-
-'/home/*.txt'
+    - scatterplot with hovertext to pick outliers (work orders with variance type & value)'
 """
 import pandas as pd
 import glob
