@@ -24,3 +24,15 @@ to automate the process of: iterating through all txt files in a directory; conv
 - visualize with hovertext
 
 - identify outliers
+
+
+# Excel Method
+
+- pivot table: columns; rows; filters; values
+
+- pivot chart
+
+- identify outliers
+
+- identify the difference between pre & post AAS
+
