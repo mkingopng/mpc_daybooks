@@ -1,8 +1,8 @@
 # mpc_daybooks
 
 # Objective: 
-
 to automate the process of: iterating through all txt files in a directory; converting mpc daybook files from txt to pd.dataframe; cleaning the data; then returning a clean file containing all the mpc transactions for a month.
+
 
 # Complete
 
