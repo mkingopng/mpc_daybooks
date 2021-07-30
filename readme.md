@@ -1,18 +1,25 @@
 # mpc_daybooks
 
+# Objective: 
+
+to automate the process of: iterating through all txt files in a directory; converting mpc daybook files from txt to pd.dataframe; cleaning the data; then returning a clean file containing all the mpc transactions for a month.
+
 # Complete
 
 - iterate through all files in a specified directory
 
-- automate the conversion of .txt files to dataframe
+- automate the conversion of .txt files to a single txt file
 
-- clean the data into a new df
+- convert to pd.dataframe
 
-- create a new df for full monthand append the clean dataframe
+- clean the data
+
+- export to xlsx
+  
   
 # To-do
 
-- pivot
+- pivot the data
 
 - visualize with hovertext
 
