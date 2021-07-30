@@ -61,7 +61,7 @@ def create_df(full_month_file):
     """
     # read the text file to data frame using fwf method
     mpc_df = pd.read_fwf(full_month_file, colspecs=[(0, 9), (10, 18), (19, 25), (26, 28), (33, 40), (56, 67), (68, 92),
-                                         (93, 100), (101, 111)],
+                                                    (93, 100), (101, 111)],
                          # specify the column headers
                          names=['TRANS-', 'TRANSDAT', 'ACC', 'CC', 'PRD', 'AMOUNT', 'TEXT', 'WORK.C', 'WO-NO'],
                          # specify the data types
@@ -85,6 +85,7 @@ def clean_mpc_data(mpc_df):
     cleaner_mpc_df = mpc_df[mpc_df['ACC'].notna()]
     # check to see if the value in each row for column 'ACC' is in the accounts list
     clean_mpc_df = cleaner_mpc_df[cleaner_mpc_df['ACC'].isin(accounts_list)]
+    #
     return clean_mpc_df
 
 
@@ -95,10 +96,15 @@ def fix_negatives(clean_mpc_df):
     :param clean_mpc_df:
     :return final_mpc_df:
     """
+    #
     pattern = r'\d+.{0,1}\d*-$'
+    #
     mask = clean_mpc_df['AMOUNT'].str.contains(pattern, regex=True)
+    #
     clean_mpc_df.loc[mask, 'AMOUNT'] = -clean_mpc_df.loc[mask]['AMOUNT'].str.replace('-', '').astype(float)
+    #
     clean_mpc_df['AMOUNT'] = clean_mpc_df['AMOUNT'].astype(float)
+    #
     return clean_mpc_df
 
 
