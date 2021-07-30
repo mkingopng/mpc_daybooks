@@ -1,6 +1,6 @@
 # mpc_daybooks
 
-# complete
+# Complete
 
 - iterate through all files in a specified directory
 
@@ -10,8 +10,10 @@
 
 - create a new df for full monthand append the clean dataframe
   
-# to do
+# To-do
 
 - pivot
+
 - visualize with hovertext
+
 - identify outliers
