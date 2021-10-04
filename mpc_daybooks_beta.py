@@ -33,7 +33,7 @@ import glob
 import matplotlib
 
 full_month_file = open('result.txt')
-directory = '/media/michaelkingston/4948-14F3/2021 MPC JNLS/06 JUN 2021/*.txt'
+directory = '/*.txt'
 
 
 def read_mpc_txt_files():
@@ -113,4 +113,4 @@ if __name__ == '__main__':
     mpc_df = create_df(full_month_file)
     clean_mpc_df = clean_mpc_data(mpc_df)
     final_mpc_df = fix_negatives(clean_mpc_df)
-    final_mpc_df.to_excel(r'jun21.xlsx', sheet_name='data_base', index=False)
+    final_mpc_df.to_excel(r'dec20.xlsx', sheet_name='data_base', index=False)
