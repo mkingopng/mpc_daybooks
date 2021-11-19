@@ -33,7 +33,7 @@ import glob
 import matplotlib
 
 full_month_file = open('result.txt')
-directory = '/*.txt'
+directory = '../data//*.txt'
 
 
 def read_mpc_txt_files():
