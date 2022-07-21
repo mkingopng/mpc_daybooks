@@ -1,10 +1,11 @@
 """
-
+basic visualisation in web browser
 """
 import plotly.express as px
 import pandas as pd
 from variables import *
 
+# read the csv
 df = pd.read_csv(f'{MONTH}.csv')
 
 # fix date format
