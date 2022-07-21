@@ -1,14 +1,12 @@
 """
-objective: automate the processing & analysis of MPC daybooks.
-
-background: each day when finance does a daily update, accounting transactions for production, AR, stock, and AP are
+BACKGROUND: each day when finance does a daily update, accounting transactions for production, AR, stock, and AP are
 posted from the module to the general ledger. When this happens, a summary of all the transactions captured by the
 module and transferred to GL in that update. These files are *.txt files called daybooks.
 
+OBJECTIVE: automate the processing & analysis of MPC daybooks.
+
 MPC daybooks are the manufacturing accounting transactions. These need to be processed and analysed to identify variance
 outliers and investigate. The current process is highly manual and can/should be automated.
-
-Objective: The objective of this project is to automate this process in stages
 
 process:
     - iterate through all *.txt files in a directory
@@ -18,22 +16,10 @@ process:
     - export clean data to xlsx
     (complete to this point)
 
-# TODO: #1 formatting
-    - cast TRANSDATE to date data type
-    - fill in nan values for TRANSDATE
-    -
-
-# TODO: #4 automate the analysis.
-    - pivot & save to seperate xlsx sheet
-    - scatterplot with hovertext to pick outliers (work orders with variance type & value)'
-    - export to excel. cleaned data to sheet 'data', pivoted data to 'pivot', plot to 'plot'
 """
 import pandas as pd
 import glob
-import matplotlib
-
-full_month_file = open('result.txt')
-directory = '/home/michaelkingston/Documents/GitHub/mpc_daybooks/*.txt'
+from variables import *
 
 
 def read_mpc_txt_files():
@@ -41,7 +27,7 @@ def read_mpc_txt_files():
     reads all txt files in a folder and returns a single text file
     :return: a single text file consolidating all the information from the txt files in the directory
     """
-    read_files = glob.glob(directory)
+    read_files = glob.glob(DIRECTORY)
     with open('result.txt', 'wb') as outfile:
         for f in read_files:
             with open(f, 'rb') as file:
@@ -54,8 +40,6 @@ def create_df(full_month_file):
     This function imports the consolidated data from the text file to pd.DataFrame. Have to use the fwf method because the delimiters
     are inconsistent. most of the data types are coerced to string type for to allow us to use the pd.Series methods to
     find incorrectly formatted numbers (eg: 100.00-) and mutating them into acceptable format (eg -100.00).
-
-    need to consider whether there are more appropriate data types for columns excluding 'ACCOUNT'.
     :param full_month_file:
     :return: dataframe
     """
@@ -74,9 +58,9 @@ def create_df(full_month_file):
 
 def clean_mpc_data(mpc_df):
     """
-
-    :param mpc_df: takes the 'dirty' mpc_df and cleans it
-    :return: a dataframe free of unwanted data
+    cleans the mpc_daybooks dataframe
+    :param mpc_df: takes the 'dirty' mpc_df and 'cleans' unwanted data
+    :return: a clean dataframe
     """
     # list of all the values in column 'ACC' that i want to keep
     accounts_list = ['001049', '001021', '100112', '350000', '400001', '400916',
@@ -110,7 +94,8 @@ def fix_negatives(clean_mpc_df):
 
 if __name__ == '__main__':
     outfile = read_mpc_txt_files()
-    mpc_df = create_df(full_month_file)
+    mpc_df = create_df(FULL_MONTH_FILE)
     clean_mpc_df = clean_mpc_data(mpc_df)
     final_mpc_df = fix_negatives(clean_mpc_df)
-    final_mpc_df.to_excel(r'final.xlsx', sheet_name='data_base', index=False)
+    final_mpc_df.to_csv(f'{MONTH}.csv', index=False)
+    final_mpc_df.to_excel(rf'{MONTH}.xlsx', sheet_name='data_base', index=False)
